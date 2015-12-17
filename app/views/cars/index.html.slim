@@ -1,0 +1,128 @@
+
+p#notice
+  = notice
+
+
+div#hoge
+    | hoge
+    .col-md-12#fuga1
+        | fuga1
+    .col-md-12#fuga2
+        | fuga2
+
+div#posi x, y
+
+
+h1 Listing Cars
+
+
+.container
+    .row
+        .col-md-12
+            = form_tag '/cars/searchword' do
+                | search by word
+                = text_field_tag 'search_word'
+                = submit_tag '検索', method: :post
+        .col-md-12
+            = form_tag '/cars/searchid' do
+                | search by id
+                = text_field_tag 'search_id'
+                = submit_tag '検索', method: :post
+        .col-md-12
+            = form_tag '/cars/searchword', method: 'get' do
+                | search by word. with URL parameter
+                = text_field_tag 'search_word'
+                = button_tag '検索', id: 'search_word_button'
+        .col-md-12
+            = form_tag '/cars/fileupload', :multipart => true do
+                | search by id
+                = file_field_tag 'files[]'
+                = file_field_tag 'files[]'
+                = submit_tag 'ファイルアップロード', method: :post
+
+    .row
+        .col-md-12
+            | メール
+            = text_field_tag('mail_to')
+
+    .row
+        .col-md-12
+            table.table class='table-striped table-bordered'
+                thead
+                    tr
+                        th.col-md-1 colspan="1" id
+                        th.col-md-2 colspan="1" name
+                        th.col-md-3 colspan="1" created_at
+                        th.col-md-1 colspan="1" old?
+                        th.col-md-1 colspan="4"
+                tbody
+                    - @cars.each do |car|
+                        tr
+                            td.col-md-1 = car.id
+                            td.col-md-2 = car.name
+                            td.col-md-3 = car.created_at
+                            td.col-md-1 = car.expired? ? 'old' : ''
+                            td.col-md-1 = link_to '詳細',   car,                {                 class: 'btn btn-primary active btn-sm'}
+                            td.col-md-1 = link_to '編集',   edit_car_path(car), {                 class: 'btn btn-primary active btn-sm'}  
+                            td.col-md-1 = link_to '削除',   car,                {method: :delete, class: 'btn btn-primary active btn-sm'}
+                            td.col-md-1 = link_to 'メール', mail_car_path(car), {                 class: 'btn btn-primary active btn-sm mail', id: "#{car.id}"}
+
+    .row
+        .col-md-12
+            = link_to '新規', new_car_path, {class: 'btn btn-primary active'}
+
+#background-black background-black
+
+.row style="border: solid 1px"
+    .col-md-4
+        button#toggle toggle
+    .col-md-4
+        p.toggle yes
+    .col-md-4
+        p.toggle style="display: none" no
+
+.row
+    .col-md-12
+         .row style="border: solid 1px"
+           .col-md-12#focusblur
+               pre#bivration style="position: absolute; left: 0px"
+                   | hogehoge
+        
+
+
+
+br
+br
+br
+
+opal:
+    Element['#background-black'].on(:click) do |evt|     
+       Element.find('.container').css 'background-color', '#808080'
+    end
+
+    Element['#hoge'].instance_eval do |hoge|
+      hoge.on :click do |event|
+        children.each{|child| child.css 'color', '#ff0000'}
+        Element['#posi'].text = "#{event.page_x} #{event.page_y}"
+      end
+    end
+
+    Element['#toggle'].on :click do |event|
+      Element['.toggle'].toggle
+    end
+
+    Element['#focusblur'].blur do |event|
+      Element['bivration'].css 'left', '10px'
+      Element['bivration'].delay(1000).css 'left', '20px'
+    end
+
+    Element['#focusblur'].focus do |event|
+      Element['bivration'].css 'left', '20px'
+    end
+
+    Element['.mail'].on :click do |event|
+      elem = event.element
+      addr = Element['#mail_to'].value
+      elem[:href] = "#{elem[:href]}?mail_to=#{addr}" if addr && ! addr.empty?
+    end
+

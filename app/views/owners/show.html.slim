@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @owner.name
+
+= link_to 'Edit', edit_owner_path(@owner)
+'|
+= link_to 'Back', owners_path

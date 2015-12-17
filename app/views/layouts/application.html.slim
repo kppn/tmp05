@@ -1,0 +1,29 @@
+doctype html
+html
+    head
+        title Tmp05
+        = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+        = javascript_include_tag 'application', 'data-turbolinks-track' => true
+        = csrf_meta_tags
+    body
+        nav.navbar.navbar-fixed-top.navbar-default role="navigation"
+            .container-fluid
+                .navbar-header
+                    .navbar-brand
+                        = link_to 'Tmp05', '/'
+                .collapse.navbar-collapse
+                    ul.nav.navbar-nav.navbar-right
+                        - if user_signed_in?
+                            li.active
+                                = link_to current_user.name, edit_user_registration_path
+                            li
+                                = link_to 'sign_out', destroy_user_session_path, method: :delete
+                        - else
+                            li.active
+                                = link_to 'sign_up', new_user_registration_path
+                            li
+                                = link_to 'sign_in', new_user_session_path
+
+        p.notice = notice
+        p.alert  = alert
+        = yield

@@ -1,0 +1,36 @@
+
+p#notice
+  = notice
+
+
+h1 Listing Car Ownership
+
+
+.container
+    .row
+        .col-md-12
+            - @owners.each do |owner|
+                = "#{owner.name} (Owner Id : #{owner.id})"
+                = "Mine!" if owner.user && @user && owner.user.id == @user.id
+                <br>
+                    .row
+                        .col-md-12
+                            .row
+                            .col-md-12
+                                table.table class='table-striped table-bordered'
+                                    thead
+                                        tr
+                                            th.col-md-1 colspan="1" car id
+                                            th.col-md-1 colspan="1" car name
+                                    tbody
+                                        - owner.cars.each do |car|
+                                            tr
+                                                td.col-md-1 = car.id
+                                                td.col-md-1 = car.name
+
+    .row
+        | 編集ページ
+        .col-md-12
+            = link_to 'cars', cars_path
+        .col-md-12
+            = link_to 'owners', owners_path

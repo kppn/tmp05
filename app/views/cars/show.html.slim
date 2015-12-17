@@ -1,0 +1,15 @@
+
+p#notice
+    = notice
+
+
+.container
+    .row
+        .col-md-2 style="margin-bottom: 20px; border: solid 1px; border-radius: 3px 0px 0px 3px"
+            strong Name
+        .col-md-4 style="margin-bottom: 20px; border: solid 1px; border-radius: 0px 3px 3px 0px"
+            = @car.name
+        
+    .row
+        = link_to 'Edit', edit_car_path(@car), {class: 'btn btn-primary active', style: 'margin-left:5px; margin-right:5px;'}
+        = link_to 'Back', cars_path,           {class: 'btn btn-primary active', style: 'margin-left:5px; margin-right:5px;'}

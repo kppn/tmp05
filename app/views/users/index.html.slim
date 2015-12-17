@@ -1,0 +1,19 @@
+h1 Users#index
+p Find me in app/views/users/index.html.slim
+
+table.table.table-striped.table-bordered
+    thead
+        th Id
+        th Name
+        th Owner.id
+        th Created at
+        th Updated at
+    tbody
+    - @users.each do |user|
+        tr
+            td = user.id
+            td = user.name
+            td = user.owner ? user.owner.id : nil
+            td = user.created_at
+            td = user.updated_at
+

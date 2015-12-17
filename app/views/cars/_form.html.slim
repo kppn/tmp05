@@ -1,0 +1,18 @@
+
+= form_for(@car) do |f|
+    - if @car.errors.any?
+        #error_explanation
+            h2 = pluralize(@car.errors.count, "error")
+                | prohibited this car from being saved
+            ul - @car.errors.full_messages.each do |message|
+                = message
+    .field
+         = f.label :name
+         = f.text_field :name
+    .field
+         = f.label :owner_id
+         = f.text_field :owner_id
+
+    .actions
+         = f.submit button_name, {class: 'btn btn-primary active'}
+

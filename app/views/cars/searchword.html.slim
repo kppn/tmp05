@@ -1,0 +1,13 @@
+
+p#notice
+  = notice
+
+h1 Cars Search Result
+
+.container
+    = render 'search', cars: @cars
+    
+    .row
+        .col-md-12
+            = link_to '戻る', cars_path, {class: 'btn btn-primary active'}
+

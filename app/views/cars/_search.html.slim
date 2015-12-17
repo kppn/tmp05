@@ -1,0 +1,15 @@
+
+.row
+    .col-md-12
+        table.table class='table-striped table-bordered'
+            thead
+                tr
+                    th.col-md-1 colspan="1" id
+                    th.col-md-4 colspan="1" name
+            tbody
+                - @cars.each do |car|
+                    tr
+                        td.col-md-1 = car.id
+                        td.col-md-4 = car.name
+    
+

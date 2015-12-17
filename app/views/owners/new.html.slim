@@ -1,0 +1,12 @@
+h1 New owner
+
+= form_tag '/owners' do
+    input type='hidden' name='owner[own]'  id='owner_own'  value="own"
+    input type='hidden' name='owner[name]' id='owner_name' value="#{@user.name}"
+    = submit_tag 'create me', method: :post
+br
+br
+
+== render 'form'
+
+= link_to 'Back', owners_path
